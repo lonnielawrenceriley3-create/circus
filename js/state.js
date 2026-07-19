@@ -1,37 +1,87 @@
 // Flea Circus State Management
-// Syncs between operator console and audience display via localStorage
+// Syncs between operator console and audience display
+// Supports both localStorage (local) and HTTP server (network)
 
 class ShowState {
     constructor() {
         this.stateKey = 'fleaCircusState';
         this.listeners = [];
         this.lastUpdate = 0;
-        this.poll();
+        this.useServer = false;
+        this.serverUrl = this.getServerUrl();
+        this.currentState = this.defaultState();
+
+        this.detectServer();
+    }
+
+    getServerUrl() {
+        // Try to detect if we should use server mode
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('server') === 'true') return window.location.origin;
+
+        // Check if running under a server
+        if (window.location.protocol !== 'file:') {
+            return window.location.origin;
+        }
+        return null;
+    }
+
+    detectServer() {
+        if (!this.serverUrl) {
+            this.useServer = false;
+            this.poll();
+            return;
+        }
+
+        fetch(`${this.serverUrl}/api/state`)
+            .then(() => {
+                this.useServer = true;
+                console.log('🎪 Connected to server mode');
+                this.pollServer();
+            })
+            .catch(() => {
+                console.log('📱 Using local mode (no server detected)');
+                this.useServer = false;
+                this.poll();
+            });
     }
 
     getState() {
-        try {
-            const stored = localStorage.getItem(this.stateKey);
-            return stored ? JSON.parse(stored) : this.defaultState();
-        } catch (e) {
-            return this.defaultState();
-        }
+        return this.currentState;
     }
 
     setState(updates) {
-        const current = this.getState();
         const newState = {
-            ...current,
+            ...this.currentState,
             ...updates,
             lastUpdate: Date.now()
         };
-        localStorage.setItem(this.stateKey, JSON.stringify(newState));
+        this.currentState = newState;
+
+        if (this.useServer) {
+            this.sendToServer(newState);
+        } else {
+            try {
+                localStorage.setItem(this.stateKey, JSON.stringify(newState));
+            } catch (e) {
+                console.warn('localStorage not available:', e);
+            }
+        }
+
         this.notify(newState);
+    }
+
+    sendToServer(state) {
+        fetch(`${this.serverUrl}/api/state`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(state)
+        }).catch(e => console.warn('Server sync error:', e));
     }
 
     defaultState() {
         return {
-            displayMode: 'intro', // intro, live, video, audio, overlay, blackout
+            displayMode: 'intro',
             currentCue: null,
             videoUrl: null,
             videoPlaying: false,
@@ -39,7 +89,7 @@ class ShowState {
             audioPlaying: false,
             audioVolume: 1,
             overlayText: '',
-            overlayType: null, // lower-third, breaking-news, sponsor, technical
+            overlayType: null,
             timerDuration: 0,
             timerActive: false,
             messageText: '',
@@ -50,8 +100,7 @@ class ShowState {
 
     subscribe(callback) {
         this.listeners.push(callback);
-        // Immediately call with current state
-        callback(this.getState());
+        callback(this.currentState);
         return () => {
             this.listeners = this.listeners.filter(l => l !== callback);
         };
@@ -63,11 +112,40 @@ class ShowState {
 
     poll() {
         setInterval(() => {
-            const state = this.getState();
-            if (state.lastUpdate > this.lastUpdate) {
-                this.lastUpdate = state.lastUpdate;
-                this.notify(state);
+            try {
+                const stored = localStorage.getItem(this.stateKey);
+                const state = stored ? JSON.parse(stored) : this.currentState;
+                if (state.lastUpdate > this.lastUpdate) {
+                    this.lastUpdate = state.lastUpdate;
+                    this.currentState = state;
+                    this.notify(state);
+                }
+            } catch (e) {
+                // localStorage might be unavailable
             }
+        }, 100);
+    }
+
+    pollServer() {
+        setInterval(() => {
+            if (!this.useServer) return;
+
+            fetch(`${this.serverUrl}/api/state`)
+                .then(res => res.json())
+                .then(state => {
+                    if (state.lastUpdate > this.lastUpdate) {
+                        this.lastUpdate = state.lastUpdate;
+                        this.currentState = state;
+                        this.notify(state);
+                    }
+                })
+                .catch(e => {
+                    if (this.useServer) {
+                        console.warn('Server connection lost');
+                        this.useServer = false;
+                        this.poll();
+                    }
+                });
         }, 100);
     }
 

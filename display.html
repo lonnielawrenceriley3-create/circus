@@ -370,9 +370,13 @@
     <!-- Timer -->
     <div class="timer" id="timer" style="display: none;">00:00</div>
 
+    <!-- Audio Player -->
+    <audio id="audioPlayer" style="display: none;" preload="auto"></audio>
+
     <script src="js/state.js"></script>
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
+        const audioPlayer = document.getElementById('audioPlayer');
         let timerInterval = null;
         let timerRemaining = 0;
 
@@ -425,6 +429,11 @@
                         videoPlayer.pause();
                     }
                     break;
+                case 'audio':
+                    // For audio-only, show live content as background
+                    showContent('liveContent');
+                    videoPlayer.pause();
+                    break;
                 case 'blackout':
                     showContent('blackoutContent');
                     videoPlayer.pause();
@@ -434,6 +443,15 @@
                     videoPlayer.pause();
                     createConfetti();
                     break;
+            }
+
+            // Handle audio playback
+            if (state.audioUrl && state.audioPlaying) {
+                audioPlayer.src = state.audioUrl;
+                audioPlayer.volume = state.audioVolume || 1;
+                audioPlayer.play().catch(e => console.log('Audio play error:', e));
+            } else {
+                audioPlayer.pause();
             }
 
             // Handle overlays

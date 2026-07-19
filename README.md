@@ -7,11 +7,28 @@ A browser-based theatrical show control system. No installation, no servers, no 
 
 ## Quick Start
 
-### Setup
+### Setup (Single Device)
 1. Open `index.html` in your browser
 2. Open **Audience Display** in fullscreen on your main screen (projector/TV)
 3. Open **Operator Console** on a control device (tablet/laptop)
-4. Both will sync automatically via localStorage
+4. Both will sync automatically via localStorage (same browser)
+
+### Setup (Multiple Devices - Recommended)
+1. Install Node.js if you don't have it
+2. Run the server:
+   ```bash
+   node server.js
+   ```
+3. Find your computer's IP address (run `ipconfig` or `ifconfig`)
+4. On projector/TV screen:
+   ```
+   http://<YOUR-IP>:8000/display.html
+   ```
+5. On operator tablet:
+   ```
+   http://<YOUR-IP>:8000/control.html
+   ```
+6. Both will sync automatically over your network
 
 ### Operator Console
 Control everything from the console:
@@ -37,6 +54,40 @@ The audience sees:
 - Smooth transitions between scenes
 - Overlays and graphics
 - Timer display (when active)
+
+---
+
+## Sync Modes
+
+### Local Mode (Default)
+**Best for:** Single device, or trying it out
+- Uses browser `localStorage` for sync
+- No server required
+- Works offline completely
+- Limited to same browser instance
+- **Issue:** Doesn't sync between iPhone and desktop
+
+To use:
+1. Just open the files in your browser
+2. Operator and display must be same device
+3. Works on single computer
+
+### Network Mode (Recommended for Multiple Devices)
+**Best for:** iPad operator + projector display, or multiple venues
+- Uses optional Node.js server
+- Syncs across network via HTTP
+- Works on local WiFi
+- Operator on iPhone, Display on projector
+- Multiple devices on same network
+
+To use:
+1. Have Node.js installed (https://nodejs.org)
+2. Run: `node server.js`
+3. Find your IP: `ipconfig` (Windows) or `ifconfig` (Mac/Linux)
+4. On operator device: `http://<YOUR-IP>:8000/control.html`
+5. On display device: `http://<YOUR-IP>:8000/display.html`
+
+The system automatically detects if a server is running and uses it.
 
 ---
 
@@ -252,9 +303,23 @@ Tested on:
 
 ## Troubleshooting
 
-### Display Not Syncing
-- Check both devices are on same network
-- Try refreshing both browsers
+### iPhone/iPad Not Syncing with Desktop
+This is expected behavior! localStorage is isolated per device/browser.
+
+**Solution:** Use Network Mode:
+1. Run the server: `node server.js`
+2. Open both devices to `http://<YOUR-IP>:8000/...`
+3. They will sync via the server
+
+**Detailed steps:**
+- Mac: Open Terminal, navigate to circus folder, type `node server.js`
+- Windows: Open Command Prompt, navigate to circus folder, type `node server.js`
+- Then note your IP address and use it on iPhone
+- Both devices must be on same WiFi network
+
+### Display Not Syncing (Same Device)
+- Make sure using same browser on same device
+- Try refreshing both tabs
 - Check browser console for errors (F12)
 
 ### Media Not Playing
@@ -270,9 +335,32 @@ Tested on:
 
 ### Audio Not Working
 - Check master volume slider
-- Verify audio file exists
+- Verify audio file exists in `/media/audio/`
 - Check browser audio permissions
 - Try different audio format (MP3 often most compatible)
+- On iPhone: Make sure mute switch is OFF (check side of device)
+- Try refreshing the page to re-initialize audio
+
+### Can't Find Your IP Address
+**Windows Command Prompt:**
+```
+ipconfig
+```
+Look for "IPv4 Address" under your WiFi network (usually starts with 192.168)
+
+**Mac/Linux Terminal:**
+```
+ifconfig | grep "inet "
+```
+Look for the line with your WiFi adapter (often en0 or wlan0)
+
+Then use it like: `http://192.168.1.42:8000/control.html`
+
+### Server Won't Start
+- Make sure Node.js is installed: `node --version`
+- Try a different port: `node server.js 3000`
+- Check if port 8000 is already in use
+- Make sure you're in the circus folder
 
 ---
 
