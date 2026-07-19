@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flea Circus - Audience Display</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        body {
+            cursor: none;
+        }
+
+        .display-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+
+        .content.active {
+            display: flex;
+        }
+
+        /* Intro Screen */
+        .intro-content {
+            flex-direction: column;
+            gap: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a3a 100%);
+        }
+
+        .circus-logo {
+            font-size: 4em;
+            animation: bounce-in 1s ease-out;
+        }
+
+        .intro-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro-subtitle {
+            font-size: 1.5em;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Live Arena Screen */
+        .live-content {
+            background: linear-gradient(135deg, #2a4a4a 0%, #1a3a4a 100%);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            animation: pulse-badge 1s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .arena {
+            font-size: 5em;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .arena-text {
+            font-size: 2.5em;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Video Screen */
+        .video-content {
+            flex-direction: column;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Blackout Screen */
+        .blackout-content {
+            background: #000;
+        }
+
+        /* Overlay System */
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .lower-third {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 100, 0.6));
+            border-top: 4px solid #ff6b6b;
+            font-size: 2em;
+            font-weight: 600;
+            animation: slide-in-lower 0.5s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slide-in-lower {
+            from {
+                transform: translateY(200px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .message-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px 80px;
+            border-radius: 12px;
+            font-size: 3em;
+            font-weight: 700;
+            text-align: center;
+            animation: bounce-message 0.5s ease-out;
+            border: 3px solid #f5576c;
+        }
+
+        @keyframes bounce-message {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .replay-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            padding: 12px 24px;
+            background: rgba(102, 126, 234, 0.9);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+        }
+
+        .finale-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            animation: fade-in 0.5s ease-out;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .finale-text {
+            font-size: 4em;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: scale-in 0.6s ease-out;
+        }
+
+        @keyframes scale-in {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .finale-confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: fall 3s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Timer */
+        .timer {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 2px solid #ff6b6b;
+        }
+
+        .timer.active {
+            color: #ff6b6b;
+            animation: timer-pulse 1s infinite;
+        }
+
+        @keyframes timer-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Fade transition */
+        @keyframes fade-out {
+            to { opacity: 0; }
+        }
+
+        @keyframes fade-in-content {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content.active {
+            animation: fade-in-content 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="display-area">
+        <!-- Intro -->
+        <div class="content intro-content active" id="introContent">
+            <div class="circus-logo">🎪</div>
+            <div class="intro-title">FLEA CIRCUS</div>
+            <div class="intro-subtitle">Professor Percival's Extraordinary Show</div>
+        </div>
+
+        <!-- Live Arena -->
+        <div class="content live-content" id="liveContent">
+            <div class="live-badge">LIVE</div>
+            <div class="arena">🎪</div>
+            <div class="arena-text">Welcome to the Greatest Show on Earth!</div>
+        </div>
+
+        <!-- Video -->
+        <div class="content video-content" id="videoContent">
+            <video id="videoPlayer" preload="auto"></video>
+        </div>
+
+        <!-- Blackout -->
+        <div class="content blackout-content" id="blackoutContent"></div>
+
+        <!-- Finale -->
+        <div class="content live-content" id="finaleContent">
+            <div class="finale-overlay" id="finaleOverlay">
+                <div class="finale-text">🎪 Thank You! 🎪</div>
+                <div style="font-size: 2em; color: #aaa;">Professor Percival's Extraordinary Flea Circus</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlays -->
+    <div class="overlay-container" id="overlayContainer"></div>
+
+    <!-- Timer -->
+    <div class="timer" id="timer" style="display: none;">00:00</div>
+
+    <script src="js/state.js"></script>
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        let timerInterval = null;
+        let timerRemaining = 0;
+
+        function showContent(id) {
+            document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+            document.getElementById(id)?.classList.add('active');
+        }
+
+        function showOverlay(type, content) {
+            const container = document.getElementById('overlayContainer');
+            container.innerHTML = '';
+
+            if (!type) return;
+
+            if (type === 'lower-third') {
+                const el = document.createElement('div');
+                el.className = 'lower-third';
+                el.textContent = content;
+                container.appendChild(el);
+            } else if (type === 'message') {
+                const el = document.createElement('div');
+                el.className = 'message-overlay';
+                el.textContent = content;
+                container.appendChild(el);
+            } else if (type === 'replay') {
+                const el = document.createElement('div');
+                el.className = 'replay-badge';
+                el.textContent = '📹 REPLAY';
+                container.appendChild(el);
+            }
+        }
+
+        function updateDisplay(state) {
+            // Handle display mode
+            switch (state.displayMode) {
+                case 'intro':
+                    showContent('introContent');
+                    videoPlayer.pause();
+                    break;
+                case 'live':
+                    showContent('liveContent');
+                    videoPlayer.pause();
+                    break;
+                case 'video':
+                    showContent('videoContent');
+                    if (state.videoUrl && state.videoPlaying) {
+                        videoPlayer.src = state.videoUrl;
+                        videoPlayer.play();
+                    } else {
+                        videoPlayer.pause();
+                    }
+                    break;
+                case 'blackout':
+                    showContent('blackoutContent');
+                    videoPlayer.pause();
+                    break;
+                case 'finale':
+                    showContent('finaleContent');
+                    videoPlayer.pause();
+                    createConfetti();
+                    break;
+            }
+
+            // Handle overlays
+            showOverlay(state.overlayType, state.overlayText || state.messageText);
+
+            // Handle timer
+            if (state.timerActive) {
+                const timerEl = document.getElementById('timer');
+                timerEl.style.display = 'block';
+                timerEl.classList.add('active');
+            } else {
+                const timerEl = document.getElementById('timer');
+                timerEl.style.display = 'none';
+                timerEl.classList.remove('active');
+            }
+        }
+
+        function createConfetti() {
+            const overlay = document.getElementById('finaleOverlay');
+            if (!overlay) return;
+
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'finale-confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = ['#ff6b6b', '#ff8e72', '#f5576c', '#667eea'][Math.floor(Math.random() * 4)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                overlay.appendChild(confetti);
+            }
+        }
+
+        function updateTimer(state) {
+            if (!state.timerActive) {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+                return;
+            }
+
+            if (timerRemaining === 0) {
+                timerRemaining = state.timerDuration;
+            }
+
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    timerRemaining--;
+                    const mins = Math.floor(timerRemaining / 60);
+                    const secs = timerRemaining % 60;
+                    document.getElementById('timer').textContent =
+                        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+                    if (timerRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        showState.stopTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        // Subscribe to state changes
+        showState.subscribe(state => {
+            updateDisplay(state);
+            updateTimer(state);
+        });
+
+        // Hide cursor and system elements for fullscreen broadcast
+        document.addEventListener('mousemove', (e) => {
+            // Cursor already hidden in CSS
+        });
+
+        // Prevent zoom and scrolling
+        document.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+    </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Media Setup - Flea Circus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #aaa;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .instructions {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        button {
+            background: linear-gradient(135deg, #f5576c, #f093fb);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .status.success {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            border: 1px solid #4ade80;
+        }
+
+        .status.info {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a5b4fc;
+            border: 1px solid #667eea;
+        }
+
+        .media-preview {
+            background: #222;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        video, audio {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #222;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .note {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid #ffc107;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎪 Test Media Setup</h1>
+
+    <div class="section">
+        <h2>Quick Start</h2>
+        <div class="instructions">
+            <p>This page helps you generate test media files for the Flea Circus show control system.</p>
+            <p>The system is designed to work with your own media files, but these tests help verify everything is working.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Using Your Own Media</h2>
+        <div class="instructions">
+            <p><strong>Recommended approach:</strong> Use your own video and audio files.</p>
+            <p>Simply copy files to these folders:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><code>media/video/</code> - Add your .mp4 files</li>
+                <li><code>media/audio/</code> - Add your .mp3 files</li>
+                <li><code>media/images/</code> - Add your .png or .jpg files</li>
+            </ul>
+        </div>
+
+        <div class="step" data-step="1">
+            <strong>Step 1: Copy Your Media Files</strong><br>
+            Place video files, audio files, and images into the appropriate folders.
+        </div>
+
+        <div class="step" data-step="2">
+            <strong>Step 2: Refresh the Operator Console</strong><br>
+            The media library will automatically load your files. Just refresh the browser.
+        </div>
+
+        <div class="step" data-step="3">
+            <strong>Step 3: Click and Play</strong><br>
+            In the operator console, click any media item in the library to play it.
+        </div>
+
+        <div class="note">
+            <strong>💡 Pro Tip:</strong> Media files are loaded automatically. No code changes needed. Just copy, refresh, and go!
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Supported Formats</h2>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Video:</strong><br>
+            <code>.mp4</code> (Recommended) • <code>.webm</code> • <code>.ogv</code>
+            <div class="status info">Works best with H.264 codec (most common)</div>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Audio:</strong><br>
+            <code>.mp3</code> (Recommended) • <code>.wav</code> • <code>.ogg</code> • <code>.m4a</code>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Images:</strong><br>
+            <code>.png</code> • <code>.jpg</code> • <code>.gif</code> • <code>.svg</code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Test Data for Development</h2>
+        <p style="margin-bottom: 15px;">If you want to test the system without your own media, you can download sample media:</p>
+
+        <div class="step" data-step="1">
+            <strong>Sample Video Files</strong><br>
+            Download short video clips from:
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><a href="https://www.pexels.com/videos/" target="_blank" style="color: #667eea;">Pexels Videos</a> - Free stock videos</li>
+                <li><a href="https://www.pixabay.com/videos/" target="_blank" style="color: #667eea;">Pixabay Videos</a> - Free stock videos</li>
+                <li><a href="https://www.youtube.com/" target="_blank" style="color: #667eea;">YouTube</a> - Download short clips</li>
+            </ul>
+        </div>
+
+        <div class="step" data-step="2">
+            <strong>Sample Audio Files</strong><br>
+            Download music and sound effects from:
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><a href="https://freepd.com/" target="_blank" style="color: #667eea;">FreePD</a> - Free music and SFX</li>
+                <li><a href="https://pixabay.com/music/" target="_blank" style="color: #667eea;">Pixabay Music</a> - Free music</li>
+                <li><a href="https://freesound.org/" target="_blank" style="color: #667eea;">Freesound</a> - Sound effects</li>
+            </ul>
+        </div>
+
+        <div class="step" data-step="3">
+            <strong>Sample Images</strong><br>
+            Create graphics or download from:
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><a href="https://www.pexels.com/" target="_blank" style="color: #667eea;">Pexels</a> - Free stock photos</li>
+                <li><a href="https://pixabay.com/" target="_blank" style="color: #667eea;">Pixabay</a> - Free images</li>
+                <li><a href="https://unsplash.com/" target="_blank" style="color: #667eea;">Unsplash</a> - Free photos</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Expected Directory Structure</h2>
+        <div style="background: #222; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9em; line-height: 1.8;">
+<pre>circus/
+├── media/
+│   ├── video/
+│   │   ├── arena.mp4
+│   │   ├── interview.mp4
+│   │   └── replay.mp4
+│   ├── audio/
+│   │   ├── music.mp3
+│   │   ├── applause.mp3
+│   │   └── drumroll.mp3
+│   └── images/
+│       ├── title.png
+│       ├── sponsors.png
+│       └── background.jpg
+├── index.html
+├── display.html
+├── control.html
+└── README.md</pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Tips for Best Results</h2>
+        <ul style="margin-left: 20px; line-height: 2;">
+            <li>✅ Use MP4 format for videos (best browser compatibility)</li>
+            <li>✅ Use MP3 format for audio (widest support)</li>
+            <li>✅ Keep files reasonably sized (under 50MB is ideal)</li>
+            <li>✅ Use descriptive filenames: <code>interview_guest_name.mp4</code></li>
+            <li>✅ Test on your actual display device (projector/TV)</li>
+            <li>✅ Have audio files ready for transitions</li>
+            <li>✅ Create title/credit graphics as images or videos</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Ready to Start?</h2>
+        <p style="margin-bottom: 15px;">Once you have your media files in place:</p>
+        <button onclick="window.location.href='index.html'">← Back to Home</button>
+        <button onclick="window.location.href='control.html'">Go to Operator Console →</button>
+        <button onclick="window.location.href='display.html'">Go to Display →</button>
+    </div>
+
+</body>
+</html>

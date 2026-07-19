@@ -1,0 +1,81 @@
+{
+  "show": {
+    "title": "Professor Percival's Extraordinary Flea Circus",
+    "subtitle": "The Greatest Show on Earth",
+    "theme": "broadcast",
+    "duration": 2700,
+    "intermissionDuration": 300
+  },
+  "display": {
+    "resolution": "16:9",
+    "fullscreen": true,
+    "hideAllUI": true,
+    "darkMode": true
+  },
+  "audio": {
+    "masterVolume": 1.0,
+    "musicVolume": 0.8,
+    "effectsVolume": 0.9,
+    "voiceVolume": 1.0,
+    "autoFadeMusic": true
+  },
+  "defaultCues": [
+    {
+      "name": "LIVE",
+      "key": "L",
+      "type": "live",
+      "description": "Show the arena - main performance view"
+    },
+    {
+      "name": "Interview",
+      "key": "I",
+      "type": "interview",
+      "media": "video/interview.mp4",
+      "overlay": "lower-third"
+    },
+    {
+      "name": "Replay",
+      "key": "R",
+      "type": "video",
+      "media": "video/replay.mp4",
+      "overlay": "replay"
+    },
+    {
+      "name": "Blackout",
+      "key": "B",
+      "type": "blackout",
+      "description": "Technical pause - black screen"
+    },
+    {
+      "name": "Finale",
+      "key": "F",
+      "type": "finale",
+      "description": "End of show with thank you message"
+    }
+  ],
+  "mediaLibrary": {
+    "autoLoad": true,
+    "paths": {
+      "video": "media/video",
+      "audio": "media/audio",
+      "images": "media/images"
+    },
+    "supportedFormats": {
+      "video": ["mp4", "webm", "ogv"],
+      "audio": ["mp3", "wav", "ogg", "m4a"],
+      "image": ["png", "jpg", "jpeg", "gif", "svg"]
+    }
+  },
+  "networking": {
+    "mode": "localStorage",
+    "syncInterval": 100,
+    "reconnectAttempts": 5,
+    "requireInternet": false
+  },
+  "accessibility": {
+    "enableSubtitles": false,
+    "enableDescriptions": false,
+    "highContrast": false,
+    "fontSize": "normal"
+  }
+}

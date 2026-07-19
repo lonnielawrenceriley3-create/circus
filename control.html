@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flea Circus - Operator Console</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 12px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #333;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            background: #222;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .status-badge.connected {
+            color: #4ade80;
+            border: 1px solid #4ade80;
+        }
+
+        .status-badge.disconnected {
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .cue-name {
+            font-size: 0.8em;
+            color: #aaa;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Primary button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #f5576c, #f093fb);
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-primary:active {
+            box-shadow: 0 2px 8px rgba(245, 87, 108, 0.2);
+        }
+
+        /* Live button - prominent */
+        .btn-live {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            font-size: 1.1em;
+            grid-column: span 2;
+            padding: 20px 16px;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+            animation: pulse-live 2s infinite;
+        }
+
+        .btn-live:hover {
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+            animation: none;
+        }
+
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Secondary buttons */
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Danger buttons */
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Audio controls section */
+        .section {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .volume-control label {
+            font-size: 0.9em;
+            min-width: 80px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #333;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f5576c;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f5576c;
+            cursor: pointer;
+            border: none;
+        }
+
+        .timer-display {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .media-browser {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .media-item {
+            aspect-ratio: 1;
+            background: #222;
+            border: 2px solid #333;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 0.75em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .media-item:hover {
+            border-color: #f5576c;
+            background: #2a2a2a;
+        }
+
+        .media-item.video {
+            border-left: 3px solid #667eea;
+        }
+
+        .media-item.audio {
+            border-left: 3px solid #f5576c;
+        }
+
+        .media-item.image {
+            border-left: 3px solid #4ade80;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .controls {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .btn-live {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .controls {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            button {
+                padding: 12px;
+                font-size: 0.85em;
+            }
+
+            h1 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎛️ Flea Circus Control</h1>
+        <div class="status">
+            <div class="status-badge connected" id="statusBadge">Connected</div>
+            <div class="cue-name" id="currentCue">Ready</div>
+        </div>
+    </div>
+
+    <!-- Main Cue Buttons -->
+    <div class="controls" id="mainControls">
+        <button class="btn-live" onclick="showState.cueLive()">LIVE</button>
+        <button class="btn-secondary" onclick="cueInterview()">Interview</button>
+        <button class="btn-secondary" onclick="cueTestVideo()">Video</button>
+        <button class="btn-secondary" onclick="cueTestAudio()">Audio</button>
+        <button class="btn-secondary" onclick="cueReplay()">Replay</button>
+        <button class="btn-secondary" onclick="cueMessage('APPLAUSE!', 3000)">Applause</button>
+        <button class="btn-secondary" onclick="cueMessage('💥 CANNON! 💥', 2000)">Cannon</button>
+        <button class="btn-secondary" onclick="cueFinale()">Finale</button>
+        <button class="btn-danger" onclick="showState.cueBlackout()">Blackout</button>
+        <button class="btn-primary" onclick="showState.stopAll()">Stop All</button>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="section">
+        <div class="section-title">Audio</div>
+        <div class="volume-control">
+            <label for="volumeSlider">Master Volume:</label>
+            <input type="range" id="volumeSlider" min="0" max="100" value="100" onchange="updateVolume(this.value)">
+            <span id="volumeValue">100%</span>
+        </div>
+    </div>
+
+    <!-- Timer Controls -->
+    <div class="section">
+        <div class="section-title">Timer</div>
+        <div style="display: flex; gap: 8px;">
+            <input type="number" id="timerSeconds" placeholder="Seconds" value="30" style="flex: 1; padding: 8px; background: #222; border: 1px solid #333; border-radius: 4px; color: white; font-size: 0.9em;">
+            <button class="btn-secondary" onclick="startTimer()" style="grid-column: unset;">Start</button>
+            <button class="btn-secondary" onclick="stopTimer()" style="grid-column: unset;">Stop</button>
+        </div>
+    </div>
+
+    <!-- Media Browser -->
+    <div class="section">
+        <div class="section-title">Media Library</div>
+        <div class="media-browser" id="mediaBrowser"></div>
+    </div>
+
+    <script src="js/state.js"></script>
+    <script>
+        // Subscribe to state changes
+        showState.subscribe(state => {
+            document.getElementById('currentCue').textContent = state.currentCue || 'Ready';
+            document.getElementById('statusBadge').className =
+                'status-badge ' + (state.connectionStatus === 'connected' ? 'connected' : 'disconnected');
+        });
+
+        // Load sample media
+        function loadMedia() {
+            const mediaBrowser = document.getElementById('mediaBrowser');
+            const media = [
+                { name: 'Arena', type: 'video', file: 'video/arena.mp4' },
+                { name: 'Interview', type: 'video', file: 'video/interview.mp4' },
+                { name: 'Replay', type: 'video', file: 'video/replay.mp4' },
+                { name: 'Circus Music', type: 'audio', file: 'audio/music.mp3' },
+                { name: 'Applause', type: 'audio', file: 'audio/applause.mp3' },
+                { name: 'Title Card', type: 'image', file: 'images/title.png' }
+            ];
+
+            mediaBrowser.innerHTML = media.map(m => `
+                <div class="media-item ${m.type}" onclick="playMedia('${m.file}', '${m.type}', '${m.name}')">
+                    <span>${m.type === 'video' ? '📹' : m.type === 'audio' ? '🎵' : '🖼️'}</span>
+                    <span>${m.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function playMedia(file, type, name) {
+            if (type === 'video') {
+                showState.cueVideo(file, name);
+            } else if (type === 'audio') {
+                showState.cueAudio(file, name);
+            }
+        }
+
+        function cueInterview() {
+            showState.cueInterview('video/interview.mp4', 'Interview - Guest');
+        }
+
+        function cueTestVideo() {
+            showState.cueVideo('video/arena.mp4', 'Test Video');
+        }
+
+        function cueTestAudio() {
+            showState.cueAudio('audio/music.mp3', 'Circus Music');
+        }
+
+        function cueReplay() {
+            showState.cueReplay('video/replay.mp4');
+        }
+
+        function cueMessage(text, duration) {
+            showState.cueMessage(text, duration);
+        }
+
+        function cueFinale() {
+            showState.setState({
+                displayMode: 'finale',
+                currentCue: 'FINALE',
+                overlayType: 'finale'
+            });
+        }
+
+        function updateVolume(value) {
+            document.getElementById('volumeValue').textContent = value + '%';
+            showState.setAudioVolume(value / 100);
+        }
+
+        function startTimer() {
+            const seconds = parseInt(document.getElementById('timerSeconds').value) || 30;
+            showState.startTimer(seconds);
+        }
+
+        function stopTimer() {
+            showState.stopTimer();
+        }
+
+        // Initialize
+        loadMedia();
+    </script>
+</body>
+</html>
