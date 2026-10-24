@@ -1,0 +1,86 @@
+# SpeechCam settings. install.sh copies this to /etc/speechcam/config.toml;
+# edit that copy, then: sudo systemctl restart speechcam
+
+recordings_dir = "/home/pi/recordings"
+
+# Camera: "auto" picks the first USB capture device. Run
+#   python3 speechcam.py devices
+# to see what the capture dongle offers. 1280x720 MJPEG keeps the SD card
+# and the Pi Zero's single USB port comfortable.
+video_device = "auto"
+video_size   = "1280x720"
+video_fps    = 30
+
+# Microphone: "auto" picks the first USB mic that isn't the capture dongle.
+# Or set audio_match to part of its name, e.g. "Wireless".
+audio_device   = "auto"
+audio_match    = ""
+audio_channels = 1
+audio_rate     = 48000
+
+max_minutes = 30       # safety stop
+min_free_mb = 1500     # refuse to start below this (~5 min of master video)
+
+# After each recording, convert the big MJPEG master to a small H.264 MP4
+# in the background (paused automatically while recording).
+transcode         = true
+transcode_bitrate = "3M"
+keep_master       = false   # true = keep the .mkv too
+# If the iPhone's camera-app buttons show in the HDMI picture, crop them off
+# during conversion, e.g. "crop=1080:608:100:56"  (w:h:x:y)
+crop = ""
+
+beep_device = "plughw:CARD=Headphones"   # PWM audio -> PAM8302
+volume      = 0.6
+web_port    = 8080
+
+default_profile = "speech_5_7"
+
+[pins]   # BCM numbering
+record = 17
+mode   = 27
+tally  = 22
+green  = 5
+yellow = 6
+red    = 26
+
+# Timing light profiles (seconds). MODE button cycles them; the camera beeps
+# the profile's position (1 beep = first). Red blinks at red + 30 s.
+[[profiles]]
+id = "off"
+name = "No timing lights"
+
+[[profiles]]
+id = "table_topics"
+name = "Table Topics (1-2 min)"
+green = 60
+yellow = 90
+red = 120
+
+[[profiles]]
+id = "evaluation"
+name = "Evaluation (2-3 min)"
+green = 120
+yellow = 150
+red = 180
+
+[[profiles]]
+id = "icebreaker"
+name = "Ice Breaker (4-6 min)"
+green = 240
+yellow = 300
+red = 360
+
+[[profiles]]
+id = "speech_5_7"
+name = "Speech (5-7 min)"
+green = 300
+yellow = 360
+red = 420
+
+[[profiles]]
+id = "speech_10_12"
+name = "Speech (10-12 min)"
+green = 600
+yellow = 660
+red = 720

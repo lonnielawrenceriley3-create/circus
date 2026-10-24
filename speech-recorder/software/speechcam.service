@@ -1,0 +1,15 @@
+[Unit]
+Description=SpeechCam club speech recorder
+After=network.target sound.target
+
+[Service]
+User=pi
+Group=pi
+SupplementaryGroups=video audio gpio
+WorkingDirectory=/opt/speechcam
+ExecStart=/usr/bin/python3 /opt/speechcam/speechcam.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
