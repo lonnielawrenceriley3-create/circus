@@ -1,5 +1,6 @@
 #!/bin/bash
 # SpeechCam installer for Raspberry Pi OS Lite (Bookworm, 32-bit) on a Pi Zero W.
+# The Camera Module 3 is detected automatically (camera_auto_detect=1 is the default).
 # Run from this folder:   sudo ./install.sh
 set -euo pipefail
 
@@ -11,7 +12,7 @@ BOOT=/boot/firmware/config.txt
 
 echo "== Packages"
 apt-get update
-apt-get install -y ffmpeg python3-gpiozero python3-lgpio v4l-utils alsa-utils
+apt-get install -y ffmpeg rpicam-apps-lite python3-gpiozero python3-lgpio v4l-utils alsa-utils
 
 echo "== Program files -> /opt/speechcam"
 mkdir -p /opt/speechcam /etc/speechcam
@@ -48,4 +49,5 @@ fi
 echo
 echo "Done. Reboot now:  sudo reboot"
 echo "Then open http://$(hostname).local:8080 on your phone."
-echo "Check devices with:  python3 /opt/speechcam/speechcam.py devices"
+echo "Check the camera with:  rpicam-hello --list-cameras"
+echo "Check the mic with:     python3 /opt/speechcam/speechcam.py devices"

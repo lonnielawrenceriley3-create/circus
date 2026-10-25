@@ -3,13 +3,18 @@
 
 recordings_dir = "/home/pi/recordings"
 
-# Camera: "auto" picks the first USB capture device. Run
-#   python3 speechcam.py devices
-# to see what the capture dongle offers. 1280x720 MJPEG keeps the SD card
-# and the Pi Zero's single USB port comfortable.
+# Camera. "picamera" = Raspberry Pi Camera Module 3 on the ribbon connector,
+# H.264 encoded in hardware while recording (no waiting afterwards).
+# "hdmi" = an HDMI source (e.g. a phone) through a USB capture dongle.
+camera         = "picamera"
+video_size     = "1920x1080"
+video_fps      = 30
+video_bitrate  = 6000000          # bits/s: ~45 MB per minute
+# Extra rpicam-vid options. Camera upside down? add "--hflip --vflip".
+camera_options = "--autofocus-mode continuous"
+
+# Only for camera = "hdmi"
 video_device = "auto"
-video_size   = "1280x720"
-video_fps    = 30
 
 # Microphone: "auto" picks the first USB mic that isn't the capture dongle.
 # Or set audio_match to part of its name, e.g. "Wireless".
@@ -17,17 +22,19 @@ audio_device   = "auto"
 audio_match    = ""
 audio_channels = 1
 audio_rate     = 48000
+audio_offset   = 0.0     # seconds; nudge if lips and voice look out of sync
 
 max_minutes = 30       # safety stop
-min_free_mb = 1500     # refuse to start below this (~5 min of master video)
+min_free_mb = 1500     # refuse to start below this
 
-# After each recording, convert the big MJPEG master to a small H.264 MP4
-# in the background (paused automatically while recording).
+# After each recording, make an .mp4 in the background (paused while
+# recording). With the Pi camera this only re-packages the file and encodes
+# the audio, about a minute per speech.
 transcode         = true
 transcode_bitrate = "3M"
 keep_master       = false   # true = keep the .mkv too
-# If the iPhone's camera-app buttons show in the HDMI picture, crop them off
-# during conversion, e.g. "crop=1080:608:100:56"  (w:h:x:y)
+# Optional crop applied during conversion (forces a slower full re-encode),
+# e.g. "crop=1600:900:160:90"  (w:h:x:y)
 crop = ""
 
 beep_device = "plughw:CARD=Headphones"   # PWM audio -> PAM8302

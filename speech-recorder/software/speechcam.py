@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """SpeechCam - club speech recorder for Raspberry Pi Zero W.
 
-Video:  iPhone -> Lightning Digital AV adapter -> HDMI -> USB capture dongle
+Video:  Raspberry Pi Camera Module 3, H.264 encoded in hardware by rpicam-vid
+        (or camera = "hdmi": any HDMI source through a USB capture dongle)
 Audio:  wireless lav receiver (USB audio)
-Output: MJPEG + PCM master (.mkv) while recording, then an H.264 .mp4 made
-        in the background when the camera is idle.
+Output: H.264 + PCM master (.mkv) while recording, then an .mp4 made in the
+        background when the camera is idle (a quick remux for the Pi camera,
+        a full transcode for HDMI capture).
 
-Controls: RECORD button (top), MODE button (under the crank), power button
+Controls: RECORD button (focus knob), MODE button (crank), power button
 (handled by the kernel gpio-shutdown overlay). Toastmasters timing lights
 on the front, red REC tally, beeps through a PAM8302 + speaker, and a web
 page at http://speechcam.local:8080 for control and downloads.
@@ -22,6 +24,7 @@ import json
 import math
 import os
 import re
+import shlex
 import shutil
 import signal
 import struct
@@ -41,13 +44,17 @@ CONFIG_PATHS = [Path("/etc/speechcam/config.toml"), HERE / "config.toml"]
 
 DEFAULTS = {
     "recordings_dir": "/home/pi/recordings",
+    "camera": "picamera",
+    "camera_options": "--autofocus-mode continuous",
+    "video_bitrate": 6000000,
     "video_device": "auto",
-    "video_size": "1280x720",
+    "video_size": "1920x1080",
     "video_fps": 30,
     "audio_device": "auto",
     "audio_match": "",
     "audio_channels": 1,
     "audio_rate": 48000,
+    "audio_offset": 0.0,
     "max_minutes": 30,
     "min_free_mb": 1500,
     "transcode": True,
@@ -269,7 +276,7 @@ class Beeper:
 
 
 # ---------------------------------------------------------------------------
-# Background transcoder: MKV (MJPEG) -> MP4 (H.264), only while idle
+# Background finisher: MKV master -> MP4, only while idle
 # ---------------------------------------------------------------------------
 
 class Transcoder(threading.Thread):
@@ -307,6 +314,11 @@ class Transcoder(threading.Thread):
             self.cv.notify()
 
     def _cmd(self, src, dst, encoder):
+        if self.cfg["camera"] == "picamera" and not self.cfg["crop"]:
+            # already H.264: only the audio needs encoding (~1 min per speech)
+            return ["nice", "-n", "15", "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+                    "-i", str(src), "-c:v", "copy", "-c:a", "aac", "-b:a", "128k",
+                    "-movflags", "+faststart", str(dst)]
         vf = ",".join(f for f in (self.cfg["crop"], "format=yuv420p") if f)
         cmd = ["nice", "-n", "15", "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
                "-i", str(src), "-vf", vf]
@@ -366,6 +378,7 @@ class SpeechCam:
         self.transcoder = Transcoder(cfg, simulate)
         self.transcoder.start()
         self.proc = None
+        self.cam_proc = None
         self.started = None
         self.current = None
         self.events = {}
@@ -444,13 +457,45 @@ class SpeechCam:
                     return True
         return False
 
-    def _ffmpeg_cmd(self, out):
+    def _camera_cmd(self):
+        """Process that writes raw H.264 to stdout (Pi camera mode)."""
         c = self.cfg
         if self.simulate:
-            return ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
-                    "-re", "-f", "lavfi", "-i", f"testsrc2=size={c['video_size']}:rate={c['video_fps']}",
-                    "-re", "-f", "lavfi", "-i", f"sine=frequency=440:sample_rate={c['audio_rate']}",
-                    "-c:v", "mjpeg", "-q:v", "5", "-c:a", "pcm_s16le", "-f", "matroska", str(out)]
+            return ["ffmpeg", "-hide_banner", "-loglevel", "error", "-re", "-f", "lavfi",
+                    "-i", f"testsrc2=size={c['video_size']}:rate={c['video_fps']}",
+                    "-c:v", "libx264", "-preset", "ultrafast", "-tune", "zerolatency",
+                    "-g", str(c["video_fps"] * 2), "-f", "h264", "-"]
+        width, height = c["video_size"].split("x")
+        exe = shutil.which("rpicam-vid") or shutil.which("libcamera-vid") or "rpicam-vid"
+        return [exe, "-t", "0", "-n", "--codec", "h264", "--inline",
+                "--width", width, "--height", height, "--framerate", str(c["video_fps"]),
+                "--bitrate", str(c["video_bitrate"]), "--intra", str(c["video_fps"] * 2),
+                *shlex.split(c["camera_options"]), "-o", "-"]
+
+    def _audio_input(self):
+        c = self.cfg
+        if self.simulate:
+            return ["-re", "-f", "lavfi", "-i", f"sine=frequency=440:sample_rate={c['audio_rate']}"]
+        audio = find_audio_device(c["audio_match"]) if c["audio_device"] == "auto" else c["audio_device"]
+        if not audio:
+            log("warning: no microphone found, recording video only")
+            return []
+        offset = ["-itsoffset", str(c["audio_offset"])] if c["audio_offset"] else []
+        return ["-thread_queue_size", "2048", *offset, "-f", "alsa", "-ac", str(c["audio_channels"]),
+                "-ar", str(c["audio_rate"]), "-i", audio]
+
+    def _ffmpeg_cmd(self, out, video_fd=None):
+        c = self.cfg
+        if video_fd is not None:
+            # Raw H.264 has no timestamps: stamp frames on arrival, which is
+            # the same clock ALSA uses, so sound and picture stay in sync
+            audio = self._audio_input()
+            cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+                   "-thread_queue_size", "1024", "-use_wallclock_as_timestamps", "1",
+                   "-probesize", "1M", "-f", "h264", "-i", f"/dev/fd/{video_fd}", *audio]
+            if audio:
+                cmd += ["-map", "0:v", "-map", "1:a"]
+            return cmd + ["-c:v", "copy", "-c:a", "pcm_s16le", "-f", "matroska", str(out)]
         video = find_video_device() if c["video_device"] == "auto" else c["video_device"]
         audio = find_audio_device(c["audio_match"]) if c["audio_device"] == "auto" else c["audio_device"]
         cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
@@ -477,18 +522,34 @@ class SpeechCam:
             self.current = self.dir / f"{name}.mkv"
             self.transcoder.pause()
             self.beeper.play("start", wait=True)   # finish the chime before the mic opens
-            cmd = self._ffmpeg_cmd(self.current)
-            log("record:", " ".join(cmd))
             # stderr to a file: a full pipe would stall ffmpeg mid-speech
             self.errlog = open(self.dir / ".ffmpeg.log", "w+")
-            self.proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=self.errlog)
+            if self.cfg["camera"] == "picamera":
+                read_fd, write_fd = os.pipe()
+                cam_cmd = self._camera_cmd()
+                log("camera:", " ".join(cam_cmd))
+                self.cam_proc = subprocess.Popen(cam_cmd, stdout=write_fd, stderr=self.errlog,
+                                                 stdin=subprocess.DEVNULL)
+                os.close(write_fd)
+                cmd = self._ffmpeg_cmd(self.current, video_fd=read_fd)
+                log("record:", " ".join(cmd))
+                self.proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=self.errlog,
+                                             pass_fds=(read_fd,))
+                os.close(read_fd)
+            else:
+                cmd = self._ffmpeg_cmd(self.current)
+                log("record:", " ".join(cmd))
+                self.proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=self.errlog)
             self.started = time.monotonic()
             self.events = {}
             self.error = None
             self.panel.leds["tally"].on()
             # ffmpeg exits at once if the camera or mic is missing
             time.sleep(1.0)
-            if self.proc.poll() is not None:
+            if self.proc.poll() is not None or self._camera_died():
+                self._stop_camera()
+                if self.proc.poll() is None:
+                    self.proc.kill()
                 self.proc = None
                 self.current.unlink(missing_ok=True)
                 return self._fail("recorder failed: " + self._last_error())
@@ -513,6 +574,7 @@ class SpeechCam:
                     proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:
                     proc.kill()
+            self._stop_camera()
             self.panel.leds["tally"].off()
             self.panel.lights(None)
             self.beeper.play("stop")
@@ -521,6 +583,18 @@ class SpeechCam:
             if self.cfg["transcode"] and self.current.exists():
                 self.transcoder.add(self.current)
             self.transcoder.resume()
+
+    def _camera_died(self):
+        return self.cam_proc is not None and self.cam_proc.poll() is not None
+
+    def _stop_camera(self):
+        cam, self.cam_proc = self.cam_proc, None
+        if cam and cam.poll() is None:
+            cam.send_signal(signal.SIGINT)
+            try:
+                cam.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                cam.kill()
 
     def _write_sidecar(self, duration):
         meta = {
@@ -562,7 +636,7 @@ class SpeechCam:
         while True:
             time.sleep(0.2)
             with self.lock:
-                if self.proc and self.proc.poll() is not None:
+                if self.proc and (self.proc.poll() is not None or self._camera_died()):
                     self.stop()
                     self._fail("recording stopped unexpectedly: " + self._last_error())
                     continue
