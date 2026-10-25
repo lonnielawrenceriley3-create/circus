@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 1720" width="1640" height="1720">
+<defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<style>
+      text { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; fill: #1d1d1f; }
+      .vt { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+      .vs { font-size: 13px; fill: #6b6b6b; }
+      .lb { font-size: 13px; font-weight: 600; }
+      .ls { font-size: 12.5px; fill: #555; }
+      .np { font-size: 15px; font-weight: 700; fill: #d8d8d8; font-family: Georgia, serif; dominant-baseline: middle; }
+      .ld { stroke: #1d1d1f; stroke-width: 1; }
+      .ex { stroke: #c0392b; stroke-width: 0.8; }
+      .dm { stroke: #c0392b; stroke-width: 1.2; marker-start: url(#a); marker-end: url(#a); }
+      .dt { font-size: 13px; font-weight: 700; fill: #c0392b; }
+    </style>
+<rect width="1640" height="1720" fill="#fbfaf7"/>
+<text x="40" y="54" style="font-size:30px;font-weight:800">SpeechCam: how everything fits</text>
+<text x="40" y="80" class="vs">Twin-lens reflex enclosure · all dimensions in mm · drawn to scale (3.2 px = 1 mm)</text>
+<text x="180" y="160.0" class="vt">1 · FRONT</text><text x="180" y="178.0" class="vs">what the speaker sees</text>
+<rect x="325.6" y="208.0" width="256.0" height="76.8" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="399.2" cy="246.4" r="14.7" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="399.2" cy="246.4" r="8.0" fill="#3ddc4a" stroke="none" />
+<circle cx="453.6" cy="246.4" r="14.7" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="453.6" cy="246.4" r="8.0" fill="#ffd400" stroke="none" />
+<circle cx="508.0" cy="246.4" r="14.7" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="508.0" cy="246.4" r="8.0" fill="#ff3b30" stroke="none" />
+<rect x="300.0" y="284.8" width="307.2" height="435.2" rx="12.8" fill="#3b3835" stroke="none" />
+<rect x="341.6" y="316.8" width="224.0" height="358.4" rx="19.2" fill="#55514c" stroke="#1d1d1f" />
+<rect x="268.0" y="382.3" width="32.0" height="118.4" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="608.8" y="396.7" width="12.8" height="89.6" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="608.8" y="441.5" width="11.2" height="96.0" rx="0.0" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="620.0" y="529.2" width="25.6" height="16.6" rx="0.0" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="655.2" cy="537.5" r="12.8" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="453.6" cy="572.8" r="80.0" fill="#2a2724" stroke="#c9c9c9" stroke-width="2"/>
+<circle cx="453.6" cy="572.8" r="62.4" fill="#1c1a18" stroke="#c9c9c9" />
+<circle cx="453.6" cy="572.8" r="51.7" fill="#0b0b0b" stroke="none" />
+<rect x="413.6" y="542.4" width="80.0" height="76.8" rx="0.0" fill="none" stroke="#228b22" stroke-dasharray="5 3" stroke-width="2"/>
+<rect x="440.0" y="559.2" width="27.2" height="27.2" rx="0.0" fill="#222" stroke="#228b22" />
+<circle cx="453.6" cy="572.8" r="7.0" fill="#4a6fa5" stroke="none" />
+<circle cx="453.6" cy="406.4" r="64.0" fill="#2a2724" stroke="#c9c9c9" stroke-width="2"/>
+<circle cx="453.6" cy="406.4" r="54.4" fill="#1c1a18" stroke="none" />
+<circle cx="453.6" cy="406.4" r="45.4" fill="#2c3e50" stroke="#c9c9c9" />
+<circle cx="370.4" cy="481.6" r="20.8" fill="#2a2724" stroke="#c9c9c9" />
+<circle cx="536.8" cy="481.6" r="20.8" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="370.4" y="318.1" width="166.4" height="22.4" rx="4.8" fill="#2a2724" stroke="#c9c9c9" />
+<text x="453.6" y="335.4" text-anchor="middle" class="np">SPEECHCAM</text>
+<circle cx="367.2" cy="649.6" r="14.7" fill="#c9c9c9" stroke="none" />
+<circle cx="367.2" cy="649.6" r="8.0" fill="#ff3b30" stroke="none" />
+<line x1="508.0" y1="246.4" x2="684.0" y2="208.0" class="ld"/><circle cx="508.0" cy="246.4" r="2.2" fill="#1d1d1f"/>
+<text x="688.0" y="204.0" text-anchor="start" class="lb">Timing lights</text>
+<text x="688.0" y="218.0" text-anchor="start" class="lb">green · yellow · red</text>
+<line x1="463.2" y1="553.6" x2="684.0" y2="553.6" class="ld"/><circle cx="463.2" cy="553.6" r="2.2" fill="#1d1d1f"/>
+<text x="688.0" y="549.6" text-anchor="start" class="lb">Camera Module 3</text>
+<text x="688.0" y="563.6" text-anchor="start" class="lb">behind taking lens</text>
+<line x1="492.0" y1="387.2" x2="684.0" y2="368.0" class="ld"/><circle cx="492.0" cy="387.2" r="2.2" fill="#1d1d1f"/>
+<text x="688.0" y="364.0" text-anchor="start" class="lb">Viewing lens</text>
+<text x="688.0" y="378.0" text-anchor="start" class="lb">(decorative, 28 mm glass)</text>
+<line x1="367.2" y1="649.6" x2="261.6" y2="700.8" class="ld"/><circle cx="367.2" cy="649.6" r="2.2" fill="#1d1d1f"/>
+<text x="257.6" y="696.8" text-anchor="end" class="lb">REC light</text>
+<line x1="284.0" y1="409.5" x2="255.2" y2="329.6" class="ld"/><circle cx="284.0" cy="409.5" r="2.2" fill="#1d1d1f"/>
+<text x="251.2" y="325.6" text-anchor="end" class="lb">Focus knob</text>
+<text x="251.2" y="339.6" text-anchor="end" class="lb">= RECORD</text>
+<line x1="655.2" y1="537.5" x2="684.0" y2="592.0" class="ld"/><circle cx="655.2" cy="537.5" r="2.2" fill="#1d1d1f"/>
+<text x="688.0" y="588.0" text-anchor="start" class="lb">Crank = MODE</text>
+<line x1="300.0" y1="720.0" x2="300.0" y2="748.8" class="ex"/><line x1="607.2" y1="720.0" x2="607.2" y2="748.8" class="ex"/>
+<line x1="300.0" y1="748.8" x2="607.2" y2="748.8" class="dm"/><text x="453.6" y="743.8" text-anchor="middle" class="dt">96</text>
+<line x1="300.0" y1="720.0" x2="133.6" y2="720.0" class="ex"/><line x1="300.0" y1="284.8" x2="133.6" y2="284.8" class="ex"/>
+<line x1="133.6" y1="720.0" x2="133.6" y2="284.8" class="dm"/><text x="128.6" y="502.4" transform="rotate(-90 128.6 502.4)" text-anchor="middle" class="dt">136</text>
+<line x1="300.0" y1="284.8" x2="133.6" y2="284.8" class="ex"/><line x1="300.0" y1="208.0" x2="133.6" y2="208.0" class="ex"/>
+<line x1="133.6" y1="284.8" x2="133.6" y2="208.0" class="dm"/><text x="128.6" y="246.4" transform="rotate(-90 128.6 246.4)" text-anchor="middle" class="dt">+24</text>
+<text x="1000" y="160.0" class="vt">2 · RIGHT SIDE, X-RAY</text><text x="1000" y="178.0" class="vs">front on the left · everything inside drawn in place</text>
+<rect x="1120.0" y="284.8" width="256.0" height="435.2" rx="12.8" fill="#3b3835" stroke="none" />
+<rect x="1128.3" y="293.1" width="239.4" height="418.6" rx="0.0" fill="#4d4945" stroke="none" />
+<rect x="1376.0" y="294.4" width="12.2" height="416.0" rx="0.0" fill="#3b3835" stroke="#1d1d1f" />
+<rect x="1142.4" y="208.0" width="211.2" height="76.8" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="1137.3" y="238.4" width="32.6" height="16.0" rx="0.0" fill="#ff3b30" stroke="none" />
+<rect x="1088.0" y="316.8" width="32.0" height="358.4" rx="3.2" fill="#55514c" stroke="#1d1d1f" />
+<rect x="1075.2" y="492.8" width="12.8" height="160.0" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="1051.2" y="513.6" width="24.0" height="118.4" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="1046.4" y="510.4" width="4.8" height="124.8" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<polygon points="1095.4,585.6 1046.4,624.5 1046.4,521.1 1095.4,560.0" fill="#0b0b0b" stroke="none" />
+<polyline points="1095.4,572.8 992.0,534.2" fill="none" stroke="#4a6fa5" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polyline points="1095.4,572.8 992.0,611.4" fill="none" stroke="#4a6fa5" stroke-width="1.2" stroke-dasharray="4 3"/>
+<rect x="1078.4" y="342.4" width="9.6" height="128.0" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="1059.2" y="352.0" width="19.2" height="108.8" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="1056.0" y="348.8" width="3.2" height="115.2" rx="0.0" fill="#2c3e50" stroke="#c9c9c9" />
+<rect x="1068.8" y="460.8" width="19.2" height="41.6" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="1081.6" y="641.6" width="27.5" height="16.0" rx="0.0" fill="#ff3b30" stroke="none" />
+<rect x="1116.2" y="542.4" width="3.2" height="76.8" rx="0.0" fill="#228b22" stroke="none" />
+<rect x="1095.4" y="559.2" width="20.8" height="27.2" rx="0.0" fill="#111" stroke="none" />
+<rect x="1119.4" y="600.0" width="14.4" height="17.6" rx="0.0" fill="#eee" stroke="#1d1d1f" />
+<polyline points="1132.8,609.6 1132.8,681.6 1347.2,681.6 1347.2,620.8" fill="none" stroke="#f39c12" stroke-width="4" />
+<polygon points="1190.4,711.7 1216.0,686.1 1280.0,686.1 1280.0,711.7" fill="#3b3835" stroke="#1d1d1f" />
+<rect x="1227.5" y="686.1" width="41.0" height="17.9" rx="0.0" fill="#c9c9c9" stroke="none" />
+<rect x="1164.8" y="678.4" width="44.8" height="32.0" rx="0.0" fill="#111" stroke="#888" />
+<polyline points="1209.6,694.4 1312.0,694.4 1312.0,528.0 1347.2,496.0" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="5 3"/>
+<rect x="1355.5" y="416.0" width="4.5" height="208.0" rx="0.0" fill="#2e8b57" stroke="none" />
+<rect x="1328.3" y="438.4" width="27.2" height="163.2" rx="0.0" fill="#555" stroke="none" />
+<rect x="1285.1" y="438.4" width="43.2" height="163.2" rx="0.0" fill="#111" stroke="none" />
+<rect x="1347.2" y="478.7" width="9.6" height="25.6" rx="0.0" fill="#bfc5cc" stroke="#1d1d1f" />
+<rect x="1366.4" y="580.8" width="5.1" height="51.2" rx="0.0" fill="#4169e1" stroke="none" />
+<rect x="1370.9" y="633.6" width="5.1" height="32.0" rx="0.0" fill="#9b59b6" stroke="none" />
+<rect x="1337.6" y="310.4" width="36.8" height="128.0" rx="0.0" fill="#6b6b6b" stroke="#1d1d1f" />
+<rect x="1302.4" y="515.2" width="83.2" height="51.2" rx="0.0" fill="#888" stroke="#1d1d1f" />
+<rect x="1385.6" y="512.0" width="6.4" height="57.6" rx="0.0" fill="#d4a017" stroke="none" />
+<circle cx="1227.5" cy="441.5" r="44.8" fill="#c9c9c9" stroke="#1d1d1f" fill-opacity="0.85"/>
+<circle cx="1227.5" cy="441.5" r="28.8" fill="#d4a017" stroke="none" />
+<rect x="1221.9" y="460.7" width="11.2" height="76.8" rx="0.0" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="1227.5" cy="537.5" r="12.8" fill="#c9c9c9" stroke="#1d1d1f" />
+<line x1="1046.4" y1="611.2" x2="1017.6" y2="675.2" class="ld"/><circle cx="1046.4" cy="611.2" r="2.2" fill="#1d1d1f"/>
+<text x="1013.6" y="671.2" text-anchor="end" class="lb">Flared bore =</text>
+<text x="1013.6" y="685.2" text-anchor="end" class="lb">camera's view</text>
+<line x1="1107.2" y1="560.0" x2="1017.6" y2="515.2" class="ld"/><circle cx="1107.2" cy="560.0" r="2.2" fill="#1d1d1f"/>
+<text x="1013.6" y="511.2" text-anchor="end" class="lb">Camera Module 3</text>
+<text x="1013.6" y="525.2" text-anchor="end" class="lb">(25×24×11.5)</text>
+<line x1="1331.2" y1="681.6" x2="1414.4" y2="694.4" class="ld"/><circle cx="1331.2" cy="681.6" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="690.4" text-anchor="start" class="lb">Zero camera cable</text>
+<text x="1418.4" y="704.4" text-anchor="start" class="lb">(150 mm)</text>
+<line x1="1187.2" y1="694.4" x2="1017.6" y2="713.6" class="ld"/><circle cx="1187.2" cy="694.4" r="2.2" fill="#1d1d1f"/>
+<text x="1013.6" y="709.6" text-anchor="end" class="lb">Lav receiver</text>
+<line x1="1235.2" y1="694.4" x2="1017.6" y2="758.4" class="ld"/><circle cx="1235.2" cy="694.4" r="2.2" fill="#1d1d1f"/>
+<text x="1013.6" y="754.4" text-anchor="end" class="lb">Tripod nut 1/4"</text>
+<line x1="1357.8" y1="428.8" x2="1414.4" y2="400.0" class="ld"/><circle cx="1357.8" cy="428.8" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="396.0" text-anchor="start" class="lb">Pi Zero W</text>
+<text x="1418.4" y="410.0" text-anchor="start" class="lb">+ GPIO header</text>
+<line x1="1355.8" y1="374.4" x2="1414.4" y2="316.8" class="ld"/><circle cx="1355.8" cy="374.4" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="312.8" text-anchor="start" class="lb">40 mm speaker</text>
+<line x1="1388.8" y1="540.8" x2="1414.4" y2="521.6" class="ld"/><circle cx="1388.8" cy="540.8" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="517.6" text-anchor="start" class="lb">POWER button</text>
+<line x1="1369.0" y1="608.0" x2="1414.4" y2="592.0" class="ld"/><circle cx="1369.0" cy="608.0" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="588.0" text-anchor="start" class="lb">PAM8302 amp</text>
+<line x1="1373.4" y1="649.6" x2="1414.4" y2="649.6" class="ld"/><circle cx="1373.4" cy="649.6" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="645.6" text-anchor="start" class="lb">USB-C 5 V inlet</text>
+<line x1="1256.3" y1="441.5" x2="1414.4" y2="457.6" class="ld"/><circle cx="1256.3" cy="441.5" r="2.2" fill="#1d1d1f"/>
+<text x="1418.4" y="453.6" text-anchor="start" class="lb">MODE button</text>
+<text x="1418.4" y="467.6" text-anchor="start" class="lb">inside the crank</text>
+<line x1="1120.0" y1="720.0" x2="1120.0" y2="748.8" class="ex"/><line x1="1376.0" y1="720.0" x2="1376.0" y2="748.8" class="ex"/>
+<line x1="1120.0" y1="748.8" x2="1376.0" y2="748.8" class="dm"/><text x="1248.0" y="743.8" text-anchor="middle" class="dt">80 body</text>
+<line x1="1046.4" y1="720.0" x2="1046.4" y2="748.8" class="ex"/><line x1="1120.0" y1="720.0" x2="1120.0" y2="748.8" class="ex"/>
+<line x1="1046.4" y1="748.8" x2="1120.0" y2="748.8" class="dm"/><text x="1083.2" y="743.8" text-anchor="middle" class="dt">23</text>
+<text x="180" y="826.8" class="vt">3 · TOP, X-RAY</text><text x="180" y="844.8" class="vs">front at the bottom · all heights overlaid</text>
+<rect x="300.0" y="894.0" width="307.2" height="256.0" rx="12.8" fill="#3b3835" stroke="none" />
+<rect x="308.3" y="902.3" width="290.6" height="239.4" rx="0.0" fill="#4d4945" stroke="none" />
+<rect x="312.8" y="881.8" width="281.6" height="12.2" rx="0.0" fill="#3b3835" stroke="#1d1d1f" />
+<rect x="325.6" y="916.4" width="256.0" height="211.2" rx="3.2" fill="none" stroke="#c9c9c9" stroke-dasharray="6 4" stroke-width="2"/>
+<rect x="341.6" y="1150.0" width="224.0" height="32.0" rx="3.2" fill="#55514c" stroke="#1d1d1f" />
+<rect x="373.6" y="1182.0" width="160.0" height="12.8" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<rect x="394.4" y="1194.8" width="118.4" height="24.0" rx="0.0" fill="#2a2724" stroke="#c9c9c9" />
+<polygon points="440.8,1174.6 401.9,1223.6 505.3,1223.6 466.4,1174.6" fill="#0b0b0b" stroke="none" />
+<polyline points="453.6,1174.6 508.3,1258.8" fill="none" stroke="#4a6fa5" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polyline points="453.6,1174.6 398.9,1258.8" fill="none" stroke="#4a6fa5" stroke-width="1.2" stroke-dasharray="4 3"/>
+<rect x="413.6" y="1150.6" width="80.0" height="3.2" rx="0.0" fill="#228b22" stroke="none" />
+<rect x="440.0" y="1153.8" width="27.2" height="20.8" rx="0.0" fill="#111" stroke="none" />
+<rect x="421.6" y="1136.2" width="64.0" height="14.4" rx="0.0" fill="#eee" stroke="#1d1d1f" />
+<circle cx="453.6" cy="1022.0" r="32.0" fill="#3b3835" stroke="#1d1d1f" />
+<polyline points="453.6,1137.2 453.6,922.8 405.6,922.8" fill="none" stroke="#f39c12" stroke-width="14.559999999999999" />
+<rect x="325.6" y="1060.4" width="89.6" height="44.8" rx="0.0" fill="#111" stroke="#888" />
+<rect x="300.0" y="1016.9" width="83.2" height="51.2" rx="0.0" fill="#888" stroke="#1d1d1f" />
+<rect x="524.0" y="1016.9" width="83.2" height="51.2" rx="0.0" fill="#888" stroke="#1d1d1f" />
+<rect x="268.0" y="983.3" width="30.4" height="118.4" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="608.8" y="997.7" width="12.8" height="89.6" rx="3.2" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="620.0" y="1034.2" width="25.6" height="16.6" rx="0.0" fill="#c9c9c9" stroke="#1d1d1f" />
+<circle cx="655.2" cy="1042.5" r="12.8" fill="#c9c9c9" stroke="#1d1d1f" />
+<rect x="357.6" y="910.0" width="96.0" height="4.5" rx="0.0" fill="#2e8b57" stroke="none" />
+<rect x="359.2" y="914.5" width="16.0" height="70.4" rx="0.0" fill="#111" stroke="none" />
+<rect x="453.6" y="913.2" width="64.0" height="9.6" rx="0.0" fill="#bfc5cc" stroke="#1d1d1f" />
+<rect x="453.6" y="895.6" width="128.0" height="36.8" rx="0.0" fill="#6b6b6b" stroke="#1d1d1f" fill-opacity="0.8"/>
+<rect x="504.8" y="878.0" width="51.2" height="89.6" rx="0.0" fill="#888" stroke="#1d1d1f" />
+<rect x="471.2" y="898.5" width="67.2" height="5.1" rx="0.0" fill="#4169e1" stroke="none" />
+<line x1="341.6" y1="1042.5" x2="255.2" y2="926.0" class="ld"/><circle cx="341.6" cy="1042.5" r="2.2" fill="#1d1d1f"/>
+<text x="251.2" y="922.0" text-anchor="end" class="lb">RECORD button</text>
+<text x="251.2" y="936.0" text-anchor="end" class="lb">body (26 deep)</text>
+<line x1="565.6" y1="1042.5" x2="677.6" y2="996.4" class="ld"/><circle cx="565.6" cy="1042.5" r="2.2" fill="#1d1d1f"/>
+<text x="681.6" y="992.4" text-anchor="start" class="lb">MODE button</text>
+<line x1="453.6" y1="1054.0" x2="677.6" y2="1054.0" class="ld"/><circle cx="453.6" cy="1054.0" r="2.2" fill="#1d1d1f"/>
+<text x="681.6" y="1050.0" text-anchor="start" class="lb">Camera cable</text>
+<text x="681.6" y="1064.0" text-anchor="start" class="lb">along the floor</text>
+<line x1="370.4" y1="1082.8" x2="255.2" y2="1118.0" class="ld"/><circle cx="370.4" cy="1082.8" r="2.2" fill="#1d1d1f"/>
+<text x="251.2" y="1114.0" text-anchor="end" class="lb">Lav receiver</text>
+<line x1="367.2" y1="951.6" x2="255.2" y2="983.6" class="ld"/><circle cx="367.2" cy="951.6" r="2.2" fill="#1d1d1f"/>
+<text x="251.2" y="979.6" text-anchor="end" class="lb">Header + Dupont</text>
+<text x="251.2" y="993.6" text-anchor="end" class="lb">plugs (22 deep)</text>
+<line x1="530.4" y1="945.2" x2="677.6" y2="945.2" class="ld"/><circle cx="530.4" cy="945.2" r="2.2" fill="#1d1d1f"/>
+<text x="681.6" y="941.2" text-anchor="start" class="lb">POWER button</text>
+<line x1="517.6" y1="916.4" x2="677.6" y2="874.8" class="ld"/><circle cx="517.6" cy="916.4" r="2.2" fill="#1d1d1f"/>
+<text x="681.6" y="870.8" text-anchor="start" class="lb">Speaker / OTG plug</text>
+<line x1="504.8" y1="1246.0" x2="677.6" y2="1233.2" class="ld"/><circle cx="504.8" cy="1246.0" r="2.2" fill="#1d1d1f"/>
+<text x="681.6" y="1229.2" text-anchor="start" class="lb">66° view</text>
+<line x1="300.0" y1="1150.0" x2="300.0" y2="1246.0" class="ex"/><line x1="607.2" y1="1150.0" x2="607.2" y2="1246.0" class="ex"/>
+<line x1="300.0" y1="1246.0" x2="607.2" y2="1246.0" class="dm"/><text x="453.6" y="1241.0" text-anchor="middle" class="dt">96</text>
+<text x="1000" y="856.4" class="vt">4 · BACK DOOR, INSIDE</text><text x="1000" y="874.4" class="vs">seen from inside the camera</text>
+<rect x="1132.8" y="904.4" width="281.6" height="416.0" rx="9.6" fill="#3b3835" stroke="#1d1d1f" />
+<circle cx="1150.7" cy="1299.3" r="5.4" fill="#111" stroke="none" />
+<circle cx="1396.5" cy="1299.3" r="5.4" fill="#111" stroke="none" />
+<circle cx="1150.7" cy="925.5" r="5.4" fill="#111" stroke="none" />
+<circle cx="1396.5" cy="925.5" r="5.4" fill="#111" stroke="none" />
+<rect x="1177.6" y="1026.0" width="96.0" height="208.0" rx="4.8" fill="#2e8b57" stroke="#1d1d1f" />
+<circle cx="1188.8" cy="1222.8" r="9.0" fill="#d9d9d9" stroke="#1d1d1f" />
+<circle cx="1262.4" cy="1222.8" r="9.0" fill="#d9d9d9" stroke="#1d1d1f" />
+<circle cx="1188.8" cy="1037.2" r="9.0" fill="#d9d9d9" stroke="#1d1d1f" />
+<circle cx="1262.4" cy="1037.2" r="9.0" fill="#d9d9d9" stroke="#1d1d1f" />
+<rect x="1179.2" y="1048.4" width="16.0" height="163.2" rx="0.0" fill="#111" stroke="none" />
+<rect x="1190.4" y="1221.2" width="70.4" height="12.8" rx="0.0" fill="#eee" stroke="#1d1d1f" />
+<rect x="1273.6" y="1088.7" width="64.0" height="25.6" rx="0.0" fill="#bfc5cc" stroke="#1d1d1f" />
+<rect x="1273.6" y="1048.4" width="32.0" height="25.6" rx="0.0" fill="#bfc5cc" stroke="#1d1d1f" />
+<rect x="1291.2" y="1190.8" width="67.2" height="51.2" rx="0.0" fill="#4169e1" stroke="#1d1d1f" />
+<circle cx="1337.6" cy="984.4" r="70.4" fill="none" stroke="#1d1d1f" />
+<circle cx="1337.6" cy="984.4" r="64.0" fill="#6b6b6b" stroke="#1d1d1f" />
+<circle cx="1350.4" cy="1150.8" r="25.6" fill="#888" stroke="#1d1d1f" />
+<rect x="1312.0" y="1243.6" width="38.4" height="32.0" rx="0.0" fill="#9b59b6" stroke="#1d1d1f" />
+<polyline points="1225.6,1234.0 1225.6,1285.2" fill="none" stroke="#f39c12" stroke-width="12.32" />
+<line x1="1216.0" y1="1125.2" x2="1075.2" y2="1125.2" class="ld"/><circle cx="1216.0" cy="1125.2" r="2.2" fill="#1d1d1f"/>
+<text x="1071.2" y="1121.2" text-anchor="end" class="lb">Pi Zero W</text>
+<text x="1071.2" y="1135.2" text-anchor="end" class="lb">(USB ports face right)</text>
+<line x1="1187.2" y1="1138.0" x2="1075.2" y2="1010.0" class="ld"/><circle cx="1187.2" cy="1138.0" r="2.2" fill="#1d1d1f"/>
+<text x="1071.2" y="1006.0" text-anchor="end" class="lb">GPIO header</text>
+<line x1="1225.6" y1="1227.6" x2="1075.2" y2="1227.6" class="ld"/><circle cx="1225.6" cy="1227.6" r="2.2" fill="#1d1d1f"/>
+<text x="1071.2" y="1223.6" text-anchor="end" class="lb">Camera connector</text>
+<line x1="1305.6" y1="1101.5" x2="1452.8" y2="1061.2" class="ld"/><circle cx="1305.6" cy="1101.5" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="1057.2" text-anchor="start" class="lb">USB: OTG cable</text>
+<text x="1456.8" y="1071.2" text-anchor="start" class="lb">to lav receiver</text>
+<line x1="1289.6" y1="1061.2" x2="1452.8" y2="1010.0" class="ld"/><circle cx="1289.6" cy="1061.2" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="1006.0" text-anchor="start" class="lb">PWR: 5 V pigtail</text>
+<line x1="1369.6" y1="952.4" x2="1452.8" y2="926.8" class="ld"/><circle cx="1369.6" cy="952.4" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="922.8" text-anchor="start" class="lb">Speaker 40 mm</text>
+<line x1="1369.6" y1="1150.8" x2="1452.8" y2="1150.8" class="ld"/><circle cx="1369.6" cy="1150.8" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="1146.8" text-anchor="start" class="lb">POWER button</text>
+<line x1="1344.0" y1="1214.8" x2="1452.8" y2="1214.8" class="ld"/><circle cx="1344.0" cy="1214.8" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="1210.8" text-anchor="start" class="lb">PAM8302 amp</text>
+<line x1="1337.6" y1="1259.6" x2="1452.8" y2="1272.4" class="ld"/><circle cx="1337.6" cy="1259.6" r="2.2" fill="#1d1d1f"/>
+<text x="1456.8" y="1268.4" text-anchor="start" class="lb">USB-C inlet</text>
+<line x1="1132.8" y1="1320.4" x2="1132.8" y2="1349.2" class="ex"/><line x1="1414.4" y1="1320.4" x2="1414.4" y2="1349.2" class="ex"/>
+<line x1="1132.8" y1="1349.2" x2="1414.4" y2="1349.2" class="dm"/><text x="1273.6" y="1344.2" text-anchor="middle" class="dt">88</text>
+<text x="180" y="1420" class="vt">PARTS</text>
+<rect x="180" y="1433" width="14" height="14" rx="3" fill="#228b22"/><text x="202" y="1444" class="lb">Raspberry Pi Camera Module 3, standard (SC0872)</text><text x="550" y="1444" class="ls">25 × 24 × 11.5 mm</text>
+<rect x="180" y="1455" width="14" height="14" rx="3" fill="#f39c12"/><text x="202" y="1466" class="lb">Raspberry Pi Zero camera cable (SC0002)</text><text x="550" y="1466" class="ls">150 mm</text>
+<rect x="180" y="1477" width="14" height="14" rx="3" fill="#2e8b57"/><text x="202" y="1488" class="lb">Raspberry Pi Zero W</text><text x="550" y="1488" class="ls">65 × 30 mm, on 5 mm standoffs</text>
+<rect x="180" y="1499" width="14" height="14" rx="3" fill="#4169e1"/><text x="202" y="1510" class="lb">Adafruit PAM8302 amplifier</text><text x="550" y="1510" class="ls">in a printed cradle</text>
+<rect x="180" y="1521" width="14" height="14" rx="3" fill="#6b6b6b"/><text x="202" y="1532" class="lb">Gikfun 40 mm speaker</text><text x="550" y="1532" class="ls">behind the grille</text>
+<rect x="180" y="1543" width="14" height="14" rx="3" fill="#888"/><text x="202" y="1554" class="lb">16 mm panel push buttons ×3</text><text x="550" y="1554" class="ls">~26 mm deep behind the panel</text>
+<rect x="180" y="1565" width="14" height="14" rx="3" fill="#9b59b6"/><text x="202" y="1576" class="lb">USB-C breakout (5 V in)</text><text x="550" y="1576" class="ls">behind the slot</text>
+<rect x="180" y="1587" width="14" height="14" rx="3" fill="#111"/><text x="202" y="1598" class="lb">Wireless lav receiver</text><text x="550" y="1598" class="ls">loose on the floor</text>
+<text x="180" y="1634" class="lb">Tightest fits (all clear):</text>
+<text x="180" y="1652" class="ls">· OTG plug ↔ POWER button: 3.4 mm</text>
+<text x="180" y="1670" class="ls">· PWR plug ↔ speaker rim: 2.4 mm</text>
+<text x="180" y="1688" class="ls">· Header plugs ↔ RECORD button: 10 mm</text>
+<text x="180" y="1706" class="ls">Leave ~15 cm of wire on every lead to the door.</text>
+</svg>

@@ -254,7 +254,8 @@ module hood() {
 
 // ---------- BACK DOOR (Pi Zero, amp and speaker mount on the inside) ----
 pi_xz  = [21.5, 33.5];            // first Pi Zero hole (Pi stands upright)
-spk    = [68, 104];                // speaker centre
+spk    = [68, 108];                // speaker centre (clear of the Pi's PWR plug)
+pwr_btn= [72, 56];                 // POWER button (clear of the USB OTG plug and the amp)
 module door() {
     dw = door_x[1] - door_x[0]; dh = door_z[1] - door_z[0];
     difference() {
@@ -277,10 +278,10 @@ module door() {
         translate([spk.x, D - 1, spk.y]) for (ring = [0:3]) for (a = [0:360/max(1, 6*ring):359])
             rotate([0, a, 0]) translate([ring * 4.4, 0, 0]) ycyl(1.4, 0, 6, 16);
         // POWER button and USB-C inlet
-        translate([66, D - 1, 62]) ycyl(btn_d / 2, 0, 6);
+        translate([pwr_btn.x, D - 1, pwr_btn.y]) ycyl(btn_d / 2, 0, 6);
         translate([66, D - 1, 22]) rotate([-90, 0, 0]) linear_extrude(6) offset(1.2) square([7.4, 1.6], center = true);
         // engraved labels
-        translate([66, D + 2.4, 75]) rotate([90, 0, 180]) linear_extrude(1)
+        translate([pwr_btn.x, D + 2.4, pwr_btn.y + 12]) rotate([90, 0, 180]) linear_extrude(1)
             text("POWER", size = 4, font = "DejaVu Serif:style=Bold", halign = "center");
         translate([66, D + 2.4, 30]) rotate([90, 0, 180]) linear_extrude(1)
             text("5V IN", size = 4, font = "DejaVu Serif:style=Bold", halign = "center");
@@ -312,6 +313,67 @@ module crank() {
     }
 }
 
+// ---------- COMPONENT STAND-INS (for layout drawings / clash checks) ----
+// True-size blocks for the parts that go inside. Not printed.
+cam_board_z0 = z_t + cam_lens_top - cam_h;     // camera board bottom edge
+module components() {
+    // Camera Module 3: board, lens block, connector on the back
+    color("ForestGreen") translate([cx - cam_w/2, -1.2, cam_board_z0]) cube([cam_w, 1, cam_h]);
+    color("Black") translate([cx - 4.25, lens_front_y, z_t - 4.25]) cube([8.5, -lens_front_y - 1.2, 8.5]);
+    color("Ivory") translate([cx - 10, -0.2, cam_board_z0 + 0.5]) cube([20, 4.5, 5.5]);
+    // Zero camera cable: down, along the floor over the tripod boss, up to the Pi
+    color("Orange") {
+        translate([cx - 6.5, 4, 12]) cube([13, 0.6, cam_board_z0 + 3 - 12]);
+        translate([cx - 6.5, 4, 12]) cube([13, D - 9 - 4, 0.6]);
+        translate([pi_xz.x + 5, D - 9, 12]) cube([13, 0.6, pi_xz.y - 3.5 - 12 + 4]);
+    }
+    // Pi Zero W, upright on the door; camera connector at the bottom end
+    pz = [pi_xz.x - 3.5, pi_xz.y - 3.5];
+    color("SeaGreen") translate([pz.x, D - 5 - 1.4, pz.y]) cube([30, 1.4, 65]);
+    color("DimGray") translate([pz.x + 0.5, D - 6.4 - 8.5, pz.y + 7]) cube([5, 8.5, 51]);      // header
+    color("Black")   translate([pz.x - 0.5, D - 6.4 - 22, pz.y + 7]) cube([6, 13.5, 51]);     // Dupont plugs
+    color("Silver")  translate([pz.x + 30, D - 6.4 - 3, pz.y + 41.4 - 4]) cube([20, 3, 8]);   // OTG plug (USB)
+    color("Silver")  translate([pz.x + 30, D - 6.4 - 3, pz.y + 54 - 4]) cube([10, 3, 8]);     // PWR pigtail
+    // PAM8302 in its cradle, speaker behind the grille
+    color("RoyalBlue") translate([53.5, D - 3, 27.5]) cube([21, 1.6, 16]);
+    color("DimGray") translate([spk.x, D, spk.y]) ycyl(20, -0.5, -12);
+    // USB-C inlet breakout
+    color("Purple") translate([60, D - 1.6, 17]) cube([12, 1.6, 10]);
+    // 16 mm buttons (bezel outside, body inside)
+    module button() { color("Gold") cylinder(d = 18, h = 2); color("DarkGray") translate([0, 0, -26]) cylinder(d = 16, h = 26); }
+    translate([0, side_btn.x, side_btn.y]) rotate([0, -90, 0]) button();
+    translate([W, side_btn.x, side_btn.y]) rotate([0, 90, 0]) button();
+    translate([pwr_btn.x, D + 3, pwr_btn.y]) rotate([-90, 0, 0]) button();
+    // LEDs
+    for (i = [0:2]) color(["Lime", "Yellow", "Red"][i]) translate([lights_x[i], hood_y0 + 0.5, lights_z]) ycyl(2.5, 0, 8.6);
+    color("Red") translate([tally_xz.x, -T - 2, tally_xz.y]) ycyl(2.5, 0, 8.6);
+    // wireless lav receiver on the floor, cable to the OTG plug
+    color("Black") translate([8, 14, wall + 0.5]) cube([28, 14, 10]);
+    // tripod nut
+    color("Silver") translate([cx, D/2, wall + 8 - 5.6]) cylinder(d = 12.7, h = 5.5, $fn = 6);
+}
+
+module components_on_door() {   // the door seen from inside, with what's mounted on it
+    color([0.34, 0.33, 0.32]) door();
+    intersection() { components(); translate([0, D - 30, 0]) cube([W, 40, H]); }
+}
+
+// Layout views: cut-aways with the components in place
+module layout(cut = "none") {
+    module cutter() {
+        if (cut == "side") translate([-200, -100, -100]) cube([200 + cx, 400, 400]);
+        if (cut == "top")  translate([-100, -100, side_btn.y]) cube([400, 400, 200]);
+    }
+    module part_cut(c) { color(c) difference() { children(); cutter(); } }
+    part_cut([0.30, 0.29, 0.28]) body();
+    part_cut([0.38, 0.37, 0.36]) standard();
+    if (cut != "back") part_cut([0.34, 0.33, 0.32]) door();
+    part_cut("Silver") hood();
+    part_cut("Silver") translate([-0.5, side_btn.x, side_btn.y]) rotate([0, -90, 0]) knob();
+    part_cut("Silver") translate([W + 0.5, side_btn.x, side_btn.y]) rotate([0, 90, 0]) crank();
+    difference() { components(); cutter(); }
+}
+
 // ---------- Output -------------------------------------------------------
 module assembly() {
     color([0.26, 0.25, 0.24]) body();
@@ -328,4 +390,8 @@ if (part == "standard") rotate([-90, 0, 0]) standard();                         
 if (part == "door")     translate([0, 0, D + 3.8]) rotate([-90, 0, 0]) door();      // outside face down
 if (part == "hood")     translate([0, 0, H + hood.z]) rotate([180, 0, 0]) hood();   // lid down
 if (part == "knob")     knob();
+if (part == "layout_side") layout("side");
+if (part == "layout_top")  layout("top");
+if (part == "layout_back") layout("back");
+if (part == "layout_door") components_on_door();
 if (part == "crank")    crank();

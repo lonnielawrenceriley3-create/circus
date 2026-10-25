@@ -45,8 +45,8 @@ phone over Wi-Fi.
 
 | Item | Qty | ≈ Cost | Notes |
 |---|---|---|---|
-| **Raspberry Pi Camera Module 3** (standard lens, **not** "Wide") | 1 | $25 | The lens bore is sized for the standard 75° view |
-| **Pi Zero camera cable** (22-pin to 15-pin, 100–150 mm) | 1 | $5 | The camera's own cable doesn't fit the Zero |
+| **Raspberry Pi Camera Module 3, standard lens: part no. SC0872** (Adafruit #5657) | 1 | $25 | 12 MP, autofocus, 75° view. **Not** SC0873 (NoIR), SC0874 (Wide) or SC0875 (Wide NoIR) |
+| **Raspberry Pi Zero camera cable, 150 mm: part no. SC0002** | 1 | $4–6 | The cable in the camera box doesn't fit the Zero |
 | **Micro-USB (OTG) to USB-C cable**, short | 1 | $6 | Lav receiver → Pi "USB" port. No hub needed |
 | 5 V 2.5 A USB-C power supply | 1 | $10 | |
 | USB-C female breakout (with 5.1 kΩ CC resistors) | 1 | $2 | Back-panel power inlet |
@@ -103,7 +103,8 @@ the tactile buttons from your kit, then move to the panel buttons.
 
 ### Phase 3: print and assemble
 
-See [docs/ENCLOSURE.md](docs/ENCLOSURE.md). Every part fits a 180 × 180 mm bed.
+See [docs/layout.png](docs/layout.png) for how everything fits inside, and
+[docs/ENCLOSURE.md](docs/ENCLOSURE.md) for printing and assembly. Every part fits a 180 × 180 mm bed.
 
 ## Using it at a meeting
 
